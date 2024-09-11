@@ -1,0 +1,16 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a; 
+    float b; 
+    const float c = 5.0; 
+    const float d = 2.5; 
+    std::cout << "Введите целое число (a): ";
+    std::cin >> a;
+    std::cout << "Введите число с плавающей точкой (b): ";
+    std::cin >> b;
+    float result = (a + b) / (c - d);
+    std::cout << "Результат выражения (a + b) / (c - d) равен: " << result << endl;
+    return 0; // Завершение программы
+}
