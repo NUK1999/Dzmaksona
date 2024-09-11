@@ -1,0 +1,10 @@
+int main()
+{ int integerNumber;
+    std::cout << "Введите целое число: ";
+    std::cin >> integerNumber;
+    double floatingPointNumber = static_cast<double>(integerNumber);
+    std::cout << "Целое число: " << integerNumber << endl;
+    std::cout << "Число с плавающей точкой: " << floatingPointNumber << endl;
+    return 0;
+    
+}
