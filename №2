@@ -1,0 +1,13 @@
+int main()
+{ 
+    double radius; 
+    std::cout << "Введите радиус окружности: ";
+    std::cin >> radius;
+    const double PI = 3.14159;
+    double circumference = 2 * PI * radius;
+    double area = PI * radius * radius;
+    std::cout << fixed << setprecision;
+    std::cout << "Длина окружности: " << circumference;
+    std::cout << "Площадь круга: " << area;
+    return 0;
+}
