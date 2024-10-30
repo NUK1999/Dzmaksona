@@ -1,0 +1,65 @@
+#include <iostream>
+#include <vector>
+#include <unistd.h> // Для функции sleep
+
+using namespace std;
+
+const int WIDTH = 20;
+const int HEIGHT = 20;
+
+void printBoard(const vector<vector<int>>& board) {
+    system("clear"); // Очистка экрана (для Linux/Mac)
+    for (int i = 0; i < HEIGHT; ++i) {
+        for (int j = 0; j < WIDTH; ++j) {
+            cout << (board[i][j] ? 'O' : '.');
+        }
+        cout << endl;
+    }
+}
+
+int countNeighbors(const vector<vector<int>>& board, int x, int y) {
+    int count = 0;
+    for (int i = -1; i <= 1; ++i) {
+        for (int j = -1; j <= 1; ++j) {
+            if (i == 0 && j == 0) continue; // Пропускаем саму ячейку
+            int newX = (x + i + HEIGHT) % HEIGHT;  // Учитываем границы
+            int newY = (y + j + WIDTH) % WIDTH;
+            count += board[newX][newY];
+        }
+    }
+    return count;
+}
+
+void updateBoard(vector<vector<int>>& board) {
+    vector<vector<int>> newBoard = board;
+    for (int i = 0; i < HEIGHT; ++i) {
+        for (int j = 0; j < WIDTH; ++j) {
+            int neighbors = countNeighbors(board, i, j);
+            if (board[i][j] == 1) {
+                newBoard[i][j] = (neighbors == 2 || neighbors == 3) ? 1 : 0;
+            } else {
+                newBoard[i][j] = (neighbors == 3) ? 1 : 0;
+            }
+        }
+    }
+    board = newBoard;
+}
+
+int main() {
+    vector<vector<int>> board(HEIGHT, vector<int>(WIDTH, 0));
+
+    // Пример инициализации
+    board[1][2] = 1;
+    board[2][3] = 1;
+    board[3][1] = 1;
+    board[3][2] = 1;
+    board[3][3] = 1;
+
+    while (true) {
+        printBoard(board);
+        updateBoard(board);
+        usleep(200000); // Задержка в 200 миллисекунд
+    }
+
+    return 0;
+}
