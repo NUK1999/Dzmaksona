@@ -1,0 +1,114 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+// Структура для книги
+struct Book {
+    string title;
+    string author;
+    string genre;
+    bool isAvailable;
+};
+
+// Функция для добавления новой книги
+void addBook(vector<Book> &library) {
+    Book newBook;
+    
+    cout << "Введите название книги: ";
+    cin.ignore();
+    getline(cin, newBook.title);
+    
+    cout << "Введите автора книги: ";
+    getline(cin, newBook.author);
+    
+    cout << "Введите жанр книги: ";
+    getline(cin, newBook.genre);
+    
+    cout << "Введите статус (1 - доступна, 0 - недоступна): ";
+    cin >> newBook.isAvailable;
+
+    library.push_back(newBook);
+    cout << "Книга добавлена в библиотеку!" << endl;
+}
+
+// Функция для поиска книги по названию
+void searchBookByTitle(const vector<Book> &library) {
+    string title;
+    
+    cout << "Введите название книги для поиска: ";
+    cin.ignore();
+    getline(cin, title);
+    
+    bool found = false;
+
+    for (const auto &book : library) {
+        if (book.title == title) {
+            cout << "Найдена книга:" << endl;
+            cout << "Название: " << book.title << endl;
+            cout << "Автор: " << book.author << endl;
+            cout << "Жанр: " << book.genre << endl;
+            cout << "Статус: " << (book.isAvailable ? "Доступна" : "Недоступна") << endl;
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "Книга с таким названием не найдена." << endl;
+    }
+}
+
+// Функция для вывода всех доступных книг
+void displayAvailableBooks(const vector<Book> &library) {
+    cout << "Список доступных книг:" << endl;
+
+    bool found = false;
+    for (const auto &book : library) {
+        if (book.isAvailable) {
+            cout << "Название: " << book.title << ", Автор: " << book.author 
+                 << ", Жанр: " << book.genre << endl;
+            found = true;
+        }
+    }
+
+    if (!found) {
+        cout << "Нет доступных книг." << endl;
+    }
+}
+
+int main() {
+    vector<Book> library;
+    int choice;
+
+    do {
+        cout << "\nМеню:" << endl;
+        cout << "1. Добавить книгу" << endl;
+        cout << "2. Поиск книги по названию" << endl;
+        cout << "3. Вывод списка всех доступных книг" << endl;
+        cout << "4. Выход" << endl;
+        cout << "Выберите вариант: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addBook(library);
+                break;
+            case 2:
+                searchBookByTitle(library);
+                break;
+            case 3:
+                displayAvailableBooks(library);
+                break;
+            case 4:
+                cout << "Выход из программы." << endl;
+                break;
+            default:
+                cout << "Неверный выбор, попробуйте снова." << endl;
+                break;
+        }
+    } while (choice != 4);
+
+    return 0;
+}
