@@ -1,0 +1,96 @@
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <algorithm>
+using namespace std;
+void fillArray(vector<vector<int>> &array) {
+    for (size_t i = 0; i < array.size(); ++i) {
+        for (size_t j = 0; j < array[i].size(); ++j) {
+            array[i][j] = rand() % 100; 
+        }
+    }
+}
+void printArray(const vector<vector<int>> &array) {
+    for (const auto &row : array) {
+        for (int val : row) {
+            cout << val << " ";
+        }
+        cout << endl;
+    }
+}
+vector<int> spiralOrder(const vector<vector<int>> &array) {
+    vector<int> result;
+    if (array.empty() || array[0].empty()) return result;
+    int top = 0, bottom = array.size() - 1;
+    int left = 0, right = array[0].size() - 1;
+    while (top <= bottom && left <= right) {
+        for (int i = left; i <= right; ++i) {
+            result.push_back(array[top][i]);
+        }
+        top++;
+        for (int i = top; i <= bottom; ++i) {
+            result.push_back(array[i][right]);
+        }
+        right--;
+        if (top <= bottom) {
+            for (int i = right; i >= left; --i) {
+                result.push_back(array[bottom][i]);
+            }
+            bottom--;
+        }
+        if (left <= right) {
+            for (int i = bottom; i >= top; --i) {
+                result.push_back(array[i][left]);
+            }
+            left++;
+        }
+    }
+
+    return result;
+}
+void sortSpiral(vector<vector<int>> &array) {
+    vector<int> spiralElements = spiralOrder(array);
+    sort(spiralElements.begin(), spiralElements.end()); 
+    int index = 0;
+    int top = 0, bottom = array.size() - 1;
+    int left = 0, right = array[0].size() - 1;
+    while (top <= bottom && left <= right) {
+        for (int i = left; i <= right; ++i) {
+            array[top][i] = spiralElements[index++];
+        }
+        top++;
+        for (int i = top; i <= bottom; ++i) {
+            array[i][right] = spiralElements[index++];
+        }
+        right--;
+        if (top <= bottom) {
+            for (int i = right; i >= left; --i) {
+                array[bottom][i] = spiralElements[index++];
+            }
+            bottom--;
+        }
+        if (left <= right) {
+            for (int i = bottom; i >= top; --i) {
+                array[i][left] = spiralElements[index++];
+            }
+            left++;
+        }
+    }
+}
+int main() {
+    srand(static_cast<unsigned>(time(0))); 
+    int rows, cols;
+    cout << "Введите количество строк массива: ";
+    cin >> rows;
+    cout << "Введите количество столбцов массива: ";
+    cin >> cols;
+    vector<vector<int>> array(rows, vector<int>(cols));
+    fillArray(array);
+    cout << "Исходный массив:" << endl;
+    printArray(array);
+    sortSpiral(array);
+    cout << "Отсортированный по спирали массив:" << endl;
+    printArray(array);
+    return 0;
+}
