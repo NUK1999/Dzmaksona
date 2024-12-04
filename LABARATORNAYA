@@ -1,0 +1,85 @@
+#include <iostream>
+using namespace std;
+int main() {
+    int length, width;
+    cout << "Введите длину прямоугольника: ";
+    cin >> length;
+    cout << "Введите ширину прямоугольника: ";
+    cin >> width;
+    int area = length * width;
+    cout << "Площадь прямоугольника: " << area << endl;
+    return 0;
+}
+
+
+
+
+2.
+#include <iostream>
+#include <iomanip> // Для std::setprecision
+using namespace std;
+int main() {
+    const double PI = 3.14159; 
+    double radius;
+    cout << "Введите радиус окружности: ";
+    cin >> radius;
+    double circumference = 2 * PI * radius;
+    double area = PI * radius * radius;
+    cout << fixed << setprecision(2);
+    cout << "Длина окружности: " << circumference << endl;
+    cout << "Площадь круга: " << area << endl;
+    return 0;
+}
+
+
+
+
+3.
+#include <iostream>
+using namespace std;
+int main() {
+    int integerNumber;
+    cout << "Введите целое число: ";
+    cin >> integerNumber;
+    double floatingPointNumber = static_cast<double>(integerNumber);
+    cout << "Целое число: " << integerNumber << endl;
+    cout << "Число с плавающей точкой: " << floatingPointNumber << endl;
+    return 0;
+}
+
+
+
+4.
+#include <iostream>
+using namespace std;
+int main() {
+    int integerNumber; 
+    cout << "Введите целое число: ";
+    cin >> integerNumber;
+    if (integerNumber % 2 == 0) {
+        cout << integerNumber << " является четным числом." << endl;
+    } else {
+        cout << integerNumber << " является нечетным числом." << endl;
+    }
+    return 0;
+}
+
+
+5.
+#include <iostream>
+using namespace std;
+int main() {
+    int a; 
+    float b; 
+    const float c = 5.0; // Константа c
+    const float d = 2.5; // Константа d
+    cout << "Введите целое число a: ";
+    cin >> a;
+    cout << "Введите число с плавающей точкой b: ";
+    cin >> b;
+    float result = (a + b) / (c - d);
+    cout << "Результат выражения (a + b) / (c - d) равен: " << result << endl;
+    return 0;
+}
+
+
